@@ -1,0 +1,23 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model BaselineResult {
+  id        String   @id @default(cuid())
+  nama      String   @db.VarChar(100)
+  nim       String   @db.VarChar(30)
+  time10    Float
+  time50    Float
+  time100   Float
+  createdAt DateTime @default(now())
+
+  @@index([nim])
+  @@index([createdAt])
+  @@map("baseline_results")
+}
